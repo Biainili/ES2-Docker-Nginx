@@ -1,0 +1,17 @@
+- name: Run Nginx container
+  hosts: web
+  become: yes
+  tasks:
+    - name: pull nginx image
+      docker_image:
+        name: nginx
+        source: pull
+
+    - name: Run Nginx container
+      docker_container:
+        name: nginx
+        image: nginx
+        state: started
+        restart_policy: always
+        published_ports:
+          - "80:80"
